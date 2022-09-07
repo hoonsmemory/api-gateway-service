@@ -1,4 +1,4 @@
-package me.hoon.apigatewayservice.config;
+package me.hoon.apigatewayservice.filter;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
