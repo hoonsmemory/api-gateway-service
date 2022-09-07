@@ -10,6 +10,7 @@ import reactor.core.publisher.Mono;
 
 /**
  * Custom Filter 구현
+ * Global Filter 와는 다르게 필요한 라우터마다 각각 적용해줄 수 있다.
  */
 @Slf4j
 @Component
