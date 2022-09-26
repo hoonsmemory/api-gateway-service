@@ -23,6 +23,16 @@ spring:
             preLogger: true
             postLogger: true
       routes:
+        # USER-SERVICE
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/actuator/**
+            - Method=GET, POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
@@ -31,6 +41,8 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
+
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
@@ -39,6 +51,8 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
+
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
@@ -48,14 +62,20 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
             - AuthorizationHeaderFilter
+
+        # CATALOG-SERVICE
         - id: catalog-service
           uri: lb://CATALOG-SERVICE
           predicates:
             - Path=/catalog-service/**
+
+        # ORDER-SERVICE
         - id: order-service
           uri: lb://ORDER-SERVICE
           predicates:
             - Path=/order-service/**
+
+        # TEST
         - id: first-service
           uri: lb://MY-FIRST-SERVICE
           predicates:
@@ -80,3 +100,10 @@ spring:
 
 token:
   secret: user_token
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, info, httptrace
